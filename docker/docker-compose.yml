@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  ####################### POSTGRES #######################
+  db:
+    image: postgres:alpine
+    volumes:
+      - /relibca-data/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=relibcadb
