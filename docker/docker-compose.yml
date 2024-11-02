@@ -4,6 +4,7 @@ services:
   ####################### POSTGRES #######################
   db:
     image: postgres:alpine
+    container_name: postgres
     volumes:
       - /relibca-data/var/lib/postgresql/data
     ports:
@@ -12,3 +13,5 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=relibcadb
+    # env_files:
+    #   - ./app.env

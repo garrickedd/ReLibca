@@ -1,14 +1,14 @@
 version: "2"
-cloud:
-    organization: ""
-    project: ""
-    hostname: ""
-servers: []
 sql:
+-   schema: "./db/migration"
+    queries: "./db/query/"
     engine: "postgresql"
-    queries: "./"
-overrides:
-    go: null
-plugins: []
-rules: []
-options: {}
+    gen:
+        go:
+            package: "models"
+            out: "./src/models/"
+            emit_json_tags: true
+            emit_pointers_for_null_types: true
+            query_parameter_limit: 5
+
+
