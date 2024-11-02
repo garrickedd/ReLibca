@@ -1,0 +1,14 @@
+version: "2"
+cloud:
+    organization: ""
+    project: ""
+    hostname: ""
+servers: []
+sql:
+    engine: "postgresql"
+    queries: "./"
+overrides:
+    go: null
+plugins: []
+rules: []
+options: {}
