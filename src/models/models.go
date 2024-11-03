@@ -11,6 +11,12 @@ import (
 	"github.com/google/uuid"
 )
 
+type Category struct {
+	ID   uuid.UUID `json:"id"`
+	Name string    `json:"name"`
+	Type int32     `json:"type"`
+}
+
 type User struct {
 	ID          uuid.UUID    `json:"id"`
 	Fullname    string       `json:"fullname"`
