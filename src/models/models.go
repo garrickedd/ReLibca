@@ -11,6 +11,16 @@ import (
 	"github.com/google/uuid"
 )
 
+type Book struct {
+	ID         uuid.UUID      `json:"id"`
+	Name       string         `json:"name"`
+	Author     sql.NullString `json:"author"`
+	Place      sql.NullString `json:"place"`
+	Createdat  time.Time      `json:"createdat"`
+	Modifiedat sql.NullTime   `json:"modifiedat"`
+	Categoryid uuid.NullUUID  `json:"categoryid"`
+}
+
 type Category struct {
 	ID   uuid.UUID `json:"id"`
 	Name string    `json:"name"`

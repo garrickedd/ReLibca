@@ -1,5 +1,5 @@
 -- name: CreateUser :one
-insert into users(
+insert into Users(
     FullName,
     UserName,
     Password,
@@ -13,17 +13,17 @@ insert into users(
 ) returning *;
 
 -- name: GetUserById :one
-select * from users
+select * from Users
 where Id = $1 LIMIT 1;
 
 -- name: ListUsers :many
-select * from users
+select * from Users
 order by Id
 limit $1
 offset $2;
 
 -- name: UpdateUser :one
-update users
+update Users
 set
 FullName = coalesce(sqlc.narg('FullName'), FullName),
 Password = coalesce(sqlc.narg('Password'), Password),
@@ -32,11 +32,11 @@ where Id = sqlc.arg('Id')
 returning *;
 
 -- name: SetActiveStatus :one
-update users
+update Users
 set IsActive = $2, ModifiedAt = current_timestamp
 where Id = $1
 returning *;
 
 -- name: DeleteUser :exec
-delete from users
+delete from Users
 where Id = $1;

@@ -14,7 +14,7 @@ import (
 )
 
 const createUser = `-- name: CreateUser :one
-insert into users(
+insert into Users(
     FullName,
     UserName,
     Password,
@@ -66,7 +66,7 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 }
 
 const deleteUser = `-- name: DeleteUser :exec
-delete from users
+delete from Users
 where Id = $1
 `
 
@@ -76,7 +76,7 @@ func (q *Queries) DeleteUser(ctx context.Context, id uuid.UUID) error {
 }
 
 const getUserById = `-- name: GetUserById :one
-select id, fullname, username, password, phonenumber, role, isactive, createdat, modifiedat from users
+select id, fullname, username, password, phonenumber, role, isactive, createdat, modifiedat from Users
 where Id = $1 LIMIT 1
 `
 
@@ -98,7 +98,7 @@ func (q *Queries) GetUserById(ctx context.Context, id uuid.UUID) (User, error) {
 }
 
 const listUsers = `-- name: ListUsers :many
-select id, fullname, username, password, phonenumber, role, isactive, createdat, modifiedat from users
+select id, fullname, username, password, phonenumber, role, isactive, createdat, modifiedat from Users
 order by Id
 limit $1
 offset $2
@@ -138,7 +138,7 @@ func (q *Queries) ListUsers(ctx context.Context, limit int32, offset int32) ([]U
 }
 
 const setActiveStatus = `-- name: SetActiveStatus :one
-update users
+update Users
 set IsActive = $2, ModifiedAt = current_timestamp
 where Id = $1
 returning id, fullname, username, password, phonenumber, role, isactive, createdat, modifiedat
@@ -162,7 +162,7 @@ func (q *Queries) SetActiveStatus(ctx context.Context, iD uuid.UUID, isactive bo
 }
 
 const updateUser = `-- name: UpdateUser :one
-update users
+update Users
 set
 FullName = coalesce($1, FullName),
 Password = coalesce($2, Password),
