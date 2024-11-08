@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/garrickedd/ReLibca/src/server/service/entity"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -48,6 +49,14 @@ func Migrate() {
 
 	log.Println("Automigration working...")
 	db.AutoMigrate(
-
+		&entity.Book{},
+		&entity.Category{},
+		&entity.OrderItem{},
+		&entity.Order{},
+		&entity.Payment{},
+		&entity.Product{},
+		&entity.Product{},
+		&entity.Property{},
+		&entity.User{},
 	)
 }
