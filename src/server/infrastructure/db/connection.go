@@ -49,14 +49,14 @@ func Migrate() {
 
 	log.Println("Automigration working...")
 	db.AutoMigrate(
+		&entity.User{},
+		&entity.Product{},
+		&entity.Promotion{},
 		&entity.Book{},
 		&entity.Category{},
-		&entity.OrderItem{},
 		&entity.Order{},
+		&entity.OrderItem{},
 		&entity.Payment{},
-		&entity.Product{},
-		&entity.Product{},
 		&entity.Property{},
-		&entity.User{},
 	)
 }

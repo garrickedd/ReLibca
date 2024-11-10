@@ -7,7 +7,6 @@ import (
 )
 
 type Book struct {
-	// gorm.Model
 	BookId     string    `json:"book_id" gorm:"primaryKey"`
 	Name       string    `json:"name" gorm:"not null"`
 	Author     string    `json:"author" gorm:"not null"`

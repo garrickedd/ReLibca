@@ -7,7 +7,6 @@ import (
 )
 
 type Product struct {
-	// gorm.Model
 	ProductId    string    `json:"product_id" gorm:"primary_key;unique"`
 	Name         string    `json:"name" gorm:"not null"`
 	Description  string    `json:"description" gorm:"not null"`

@@ -7,7 +7,6 @@ import (
 )
 
 type Promotion struct {
-	// gorm.Model
 	PromotionId string    `json:"promotion_id" gorm:"primaryKey"`
 	Code        string    `json:"code" gorm:"not null"`
 	Discount    string    `json:"discount" gorm:"not null"`

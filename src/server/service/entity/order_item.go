@@ -6,12 +6,11 @@ import (
 )
 
 type OrderItem struct {
-	// gorm.Model
-	Order     Order `json:"order_id" gorm:"primary_key;foreignKey:OrderId;not null"`
-	OrderId   uuid.UUID
-	Product   Product `json:"product_id" gorm:"foreignKey:ProductId;not null"`
-	ProductId string
-	Book      Book `json:"book_id" gorm:"foreignKey:BookId;not null"`
-	BookId    string
-	Quantity  int `json:"quantity" gorm:"not null"`
+	Order     Order     `json:"order" gorm:"primary_key;foreignKey:OrderId;references:OrderId;not null"`
+	OrderId   uuid.UUID `json:"order_id"`
+	Product   Product   `json:"product" gorm:"foreignKey:ProductId;not null"`
+	ProductId string    `json:"product_id"`
+	Book      Book      `json:"book" gorm:"foreignKey:BookId;references:BookId;not null"`
+	BookId    string    `json:"book_id"`
+	Quantity  int       `json:"quantity" gorm:"not null"`
 }
