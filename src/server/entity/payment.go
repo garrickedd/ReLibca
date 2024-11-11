@@ -8,10 +8,10 @@ import (
 )
 
 type Payment struct {
-	PaymentId  uuid.UUID `gorm:"primaryKey;unique;type:uuid"`
-	Method     int       `gorm:"not null"`
-	TotalMoney float64   `gorm:"type:money;not null"`
-	CreatedAt  time.Time `gorm:"not null"`
-	UserId     string    `gorm:"type:varchar(20);not null"`
-	OrderId    uuid.UUID `gorm:"type:uuid;not null"`
+	PaymentId  uuid.UUID `json:"payment_id" gorm:"primaryKey;unique;type:uuid"`
+	Method     int       `json:"method" gorm:"not null"`
+	TotalMoney float64   `json:"total_money" gorm:"type:money;not null"`
+	CreatedAt  time.Time `json:"created_at" gorm:"not null"`
+	UserId     string    `json:"user_id" gorm:"type:varchar(20);not null"`
+	OrderId    uuid.UUID `json:"order_id" gorm:"type:uuid;not null"`
 }
