@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/garrickedd/ReLibca/src/server/service/entity"
+	"github.com/garrickedd/ReLibca/src/server/entity"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
