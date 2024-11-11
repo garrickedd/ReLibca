@@ -3,6 +3,6 @@ package entity
 import _ "gorm.io/gorm"
 
 type Category struct {
-	CategoryId string `json:"category_id" gorm:"primary_key;not null"`
-	Name       string `json:"name" gorm:"not null"`
+	CategoryId string `gorm:"primaryKey;not null;type:varchar(20)"`
+	Name       string `gorm:"type:text;not null"`
 }

@@ -5,9 +5,8 @@ import (
 )
 
 type Property struct {
-	Product   Product `json:"product" gorm:"foreignKey:ProductId;references:ProductId;not null"`
-	ProductId string  `json:"product_id"`
-	Size      string  `json:"size" gorm:"not null"`
-	Unit      int     `json:"unit" gorm:"not null"`
-	Price     float64 `json:"quantity" gorm:"type:decimal(19,4);not null"`
+	ProductId string  `gorm:"primaryKey;type:varchar(20);not null"`
+	Size      string  `gorm:"type:varchar(10);not null"`
+	Unit      int     `gorm:"type:text;not null"`
+	Price     float64 `gorm:"type:money;not null"`
 }

@@ -7,13 +7,12 @@ import (
 )
 
 type Book struct {
-	BookId     string    `json:"book_id" gorm:"primaryKey"`
-	Name       string    `json:"name" gorm:"not null"`
-	Author     string    `json:"author" gorm:"not null"`
-	Place      string    `json:"place" gorm:"not null"`
-	BookImage  string    `json:"book_image" gorm:"not null"`
-	Category   Category  `json:"category" gorm:"foreignKey:CategoryId;references:CategoryId;not null"`
-	CategoryId string    `json:"category_id" gorm:"uniqueIndex"`
-	CreatedAt  time.Time `json:"created_at" gorm:"not null"`
-	ModifiedAt time.Time `json:"modified_at" gorm:"not null"`
+	BookId     string    `gorm:"primaryKey;type:varchar(20)"`
+	Name       string    `gorm:"type:text;not null"`
+	Author     string    `gorm:"type:text;not null"`
+	Place      string    `gorm:"type:text;not null"`
+	BookImage  string    `gorm:"type:text;not null"`
+	CategoryId string    `gorm:"type:varchar(20);not null"`
+	CreatedAt  time.Time `gorm:"not null"`
+	ModifiedAt time.Time `gorm:"not null"`
 }
