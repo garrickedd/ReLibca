@@ -1,11 +1,15 @@
 package api
 
 import (
+	"fmt"
+
 	"github.com/garrickedd/ReLibca/src/server/api/routers"
+	"github.com/garrickedd/ReLibca/src/server/config"
 	"github.com/gin-gonic/gin"
 )
 
 func InitServer() {
+	cfg := config.GetConfig()
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
 
@@ -15,5 +19,7 @@ func InitServer() {
 		routers.Health(health)
 	}
 
-	r.Run(":5005")
+	if err := r.Run(fmt.Sprintf(":%s", cfg.Server.InternalPort)); err != nil {
+		panic(err)
+	} // Added
 }
