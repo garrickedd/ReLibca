@@ -5,13 +5,39 @@ services:
   db:
     image: postgres:alpine
     container_name: postgres
-    volumes:
-      - /relibca-data/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=relibcadb
+    volumes:
+      - /relibca-data/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - webapi_network
+    restart: unless-stopped
     # env_files:
     #   - ./app.env
+
+  ####################### REDIS #######################
+  redis:
+    image: redis:lastest
+    container_name: redis_container
+    command: ["redis-server", "/etc/redis/redis.conf"]
+    volumes:
+      - ./redis/redis.conf:/etc/redis/redis.conf
+      - redis:/etc/redis.conf
+      - redis:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - webapi_network
+
+####################### VOLUME AND NETWORKS #######################
+volumes:
+  postgres:
+  redis:
+
+networks:
+  webapi_network:
+    driver: bridge
