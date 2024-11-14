@@ -21,7 +21,7 @@ services:
 
   ####################### REDIS #######################
   redis:
-    image: redis:lastest
+    image: redis:alpine
     container_name: redis_container
     command: ["redis-server", "/etc/redis/redis.conf"]
     volumes:

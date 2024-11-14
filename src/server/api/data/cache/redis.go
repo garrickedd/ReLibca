@@ -2,7 +2,6 @@ package cache
 
 import (
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/garrickedd/ReLibca/src/server/config"
@@ -11,7 +10,7 @@ import (
 
 var redisClient *redis.Client
 
-func InitRedis(cfg *config.Config) {
+func InitRedis(cfg *config.Config) error {
 	redisClient = redis.NewClient(&redis.Options{
 		Addr:               fmt.Sprintf("%s:%s", cfg.Redis.Host, cfg.Redis.Port),
 		Password:           cfg.Redis.Password,
@@ -26,8 +25,10 @@ func InitRedis(cfg *config.Config) {
 	})
 	_, err := redisClient.Ping().Result()
 	if err != nil {
-		log.Print(err)
+		return err
 	}
+
+	return nil
 }
 func GetRedis() *redis.Client {
 	return redisClient
