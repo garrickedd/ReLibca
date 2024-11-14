@@ -11,16 +11,17 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-func InitServer() {
-	cfg := config.GetConfig()
+func InitServer(cfg *config.Config) {
 	r := gin.New()
 	// r.Use(gin.Logger(), gin.Recovery())
 
-	val, ok := binding.Validator.Engine().(*validator.Validate)
-	if ok {
-		val.RegisterValidation("mobile", validation.VietnameseMobileNumberValidator, true)
-	}
+	RegisterValidators()
+	// val, ok := binding.Validator.Engine().(*validator.Validate)
+	// if ok {
+	// 	val.RegisterValidation("mobile", validation.VietnameseMobileNumberValidator, true)
+	// }
 
+	// TODO: using cors middleware
 	r.Use(gin.Logger(), gin.Recovery())
 
 	api := r.Group("/api")
@@ -43,4 +44,12 @@ func InitServer() {
 	if err := r.Run(fmt.Sprintf(":%s", cfg.Server.InternalPort)); err != nil {
 		panic(err)
 	} // Added
+}
+
+func RegisterValidators() {
+	val, ok := binding.Validator.Engine().(*validator.Validate)
+	if ok {
+		val.RegisterValidation("mobile", validation.VietnameseMobileNumberValidator, true)
+		// val.RegisterValidation("password", validation.PasswordValidator, true)
+	}
 }
