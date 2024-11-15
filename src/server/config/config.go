@@ -13,6 +13,8 @@ type Config struct {
 	Server   ServerConfig
 	Postgres PostgresConfig
 	Redis    RedisConfig
+	// Cors     CorsConfig
+	Logger LoggerConfig
 }
 
 type ServerConfig struct {
@@ -44,6 +46,12 @@ type RedisConfig struct {
 	IdleCheckFrequency time.Duration
 	PoolSize           int
 	PoolTimeout        time.Duration
+}
+
+type LoggerConfig struct {
+	FilePath string
+	Encoding string
+	Level    string
 }
 
 func GetConfig() *Config {
