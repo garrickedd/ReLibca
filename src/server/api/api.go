@@ -7,6 +7,7 @@ import (
 	validation "github.com/garrickedd/ReLibca/src/server/api/validations"
 	"github.com/garrickedd/ReLibca/src/server/config"
 	"github.com/garrickedd/ReLibca/src/server/docs"
+	"github.com/garrickedd/ReLibca/src/server/pkg/logging"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
@@ -24,6 +25,8 @@ func InitServer(cfg *config.Config) {
 	// 	val.RegisterValidation("mobile", validation.VietnameseMobileNumberValidator, true)
 	// }
 	RegisterSwagger(r, cfg)
+	logger := logging.NewLogger(cfg)
+	logger.Info(logging.General, logging.Startup, "Started", nil)
 
 	// TODO: using cors middleware
 	r.Use(gin.Logger(), gin.Recovery())
