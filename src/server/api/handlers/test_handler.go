@@ -25,6 +25,16 @@ func (h *TestHandler) Users(c *gin.Context) {
 	})
 }
 
+// UserById godoc
+// @Summary UserById
+// @Description UserById
+// @Tags Test
+// @Accept  json
+// @Produce  json
+// @Param id path int true "user id"
+// @Success 200 {object} helper.BaseHttpResponse "Success"
+// @Failure 400 {object} helper.BaseHttpResponse "Failed"
+// @Router /v1/test/user/{id} [get]
 func (h *TestHandler) UserById(c *gin.Context) {
 	id := c.Param("id")
 	c.JSON(http.StatusOK, gin.H{

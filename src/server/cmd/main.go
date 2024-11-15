@@ -9,6 +9,9 @@ import (
 	database "github.com/garrickedd/ReLibca/src/server/infrastructure/persistence"
 )
 
+// @securityDefinitions.apikey AuthBearer
+// @in header
+// @name Authorization
 func main() {
 	cfg := config.GetConfig()
 
