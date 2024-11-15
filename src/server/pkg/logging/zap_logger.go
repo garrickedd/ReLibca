@@ -55,7 +55,7 @@ func (l *zapLogger) Init() {
 			zap.AddCallerSkip(1),
 			zap.AddStacktrace(zapcore.ErrorLevel),
 		).Sugar()
-		zapSinLogger = logger.With("AppName", "MyApp", "LoggerName", "ZeroLog")
+		zapSinLogger = logger.With("AppName", "MyApp", "LoggerName", "ZapLog")
 	})
 	l.logger = zapSinLogger
 }
