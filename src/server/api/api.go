@@ -66,7 +66,7 @@ func RegisterSwagger(r *gin.Engine, cfg *config.Config) {
 	docs.SwaggerInfo.Description = "golang web api"
 	docs.SwaggerInfo.Version = "1.0"
 	docs.SwaggerInfo.BasePath = "/api"
-	docs.SwaggerInfo.Host = fmt.Sprintf("locahost:%s", cfg.Server.ExternalPort)
+	docs.SwaggerInfo.Host = fmt.Sprintf("localhost:%s", cfg.Server.ExternalPort)
 	docs.SwaggerInfo.Schemes = []string{"http"}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
