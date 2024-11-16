@@ -15,6 +15,7 @@ type Config struct {
 	Redis    RedisConfig
 	// Cors     CorsConfig
 	Logger LoggerConfig
+	Otp    OtpConfig
 }
 
 type ServerConfig struct {
@@ -53,6 +54,12 @@ type LoggerConfig struct {
 	Encoding string
 	Level    string
 	Logger   string
+}
+
+type OtpConfig struct {
+	ExpireTime time.Duration
+	Digits     int
+	Limiter    time.Duration
 }
 
 func GetConfig() *Config {
