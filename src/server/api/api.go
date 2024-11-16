@@ -57,7 +57,7 @@ func RegisterValidators() {
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
 		val.RegisterValidation("mobile", validation.VietnameseMobileNumberValidator, true)
-		// val.RegisterValidation("password", validation.PasswordValidator, true)
+		val.RegisterValidation("password", validation.PasswordValidator, true)
 	}
 }
 

@@ -5,12 +5,12 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-func VietnameseMobileNumberValidator(fld validator.FieldLevel) bool {
-
+func PasswordValidation(fld validator.FieldLevel) bool {
 	value, ok := fld.Field().Interface().(string)
 	if !ok {
+		fld.Param()
 		return false
 	}
 
-	return common.VietnameseMobileNumberValidate(value)
+	return common.CheckPassword(value)
 }
