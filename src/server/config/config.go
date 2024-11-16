@@ -13,7 +13,7 @@ type Config struct {
 	Server   ServerConfig
 	Postgres PostgresConfig
 	Redis    RedisConfig
-	// Cors     CorsConfig
+	Cors     CorsConfig
 	Logger   LoggerConfig
 	Otp      OtpConfig
 	Password PasswordConfig
@@ -48,6 +48,10 @@ type RedisConfig struct {
 	IdleCheckFrequency time.Duration
 	PoolSize           int
 	PoolTimeout        time.Duration
+}
+
+type CorsConfig struct {
+	AllowOrigins string
 }
 
 type LoggerConfig struct {

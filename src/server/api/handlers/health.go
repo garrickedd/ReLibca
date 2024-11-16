@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/garrickedd/ReLibca/src/server/api/helper"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,7 +25,8 @@ func NewHealthHandler() *HealthHandler {
 // @Failure 400 {object} helper.BaseHttpResponse "Failed"
 // @Router /v1/health/ [get]
 func (h *HealthHandler) Health(c *gin.Context) {
-	c.JSON(http.StatusOK, "Working!")
+	// c.JSON(http.StatusOK, "Working!")
+	c.JSON(http.StatusOK, helper.GenerateBaseResponse("Working!", true, 0))
 }
 
 func (h *HealthHandler) HealthPost(c *gin.Context) {

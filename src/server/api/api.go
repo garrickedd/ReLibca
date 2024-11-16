@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 
+	"github.com/garrickedd/ReLibca/src/server/api/middlewares"
 	"github.com/garrickedd/ReLibca/src/server/api/routers"
 	validation "github.com/garrickedd/ReLibca/src/server/api/validations"
 	"github.com/garrickedd/ReLibca/src/server/config"
@@ -28,7 +29,7 @@ func InitServer(cfg *config.Config) {
 	logger := logging.NewLogger(cfg)
 	logger.Info(logging.General, logging.Startup, "Started", nil)
 
-	// TODO: using cors middleware
+	r.Use(middlewares.Cors(cfg))
 	r.Use(gin.Logger(), gin.Recovery())
 
 	api := r.Group("/api")
