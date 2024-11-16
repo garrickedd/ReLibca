@@ -4,7 +4,8 @@ import (
 	"github.com/garrickedd/ReLibca/src/server/api"
 	"github.com/garrickedd/ReLibca/src/server/api/data/cache"
 	"github.com/garrickedd/ReLibca/src/server/config"
-	database "github.com/garrickedd/ReLibca/src/server/infrastructure/persistence"
+	"github.com/garrickedd/ReLibca/src/server/infrastructure/persistence/database"
+	"github.com/garrickedd/ReLibca/src/server/infrastructure/persistence/migration"
 	"github.com/garrickedd/ReLibca/src/server/pkg/logging"
 )
 
@@ -27,6 +28,7 @@ func main() {
 	if err != nil {
 		logger.Fatal(logging.Postgres, logging.Startup, err.Error(), nil)
 	}
+	migration.Up_1()
 
 	api.InitServer(cfg)
 
