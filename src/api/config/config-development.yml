@@ -1,0 +1,14 @@
+server:
+  internalPort: 5005
+  externalPort: 5005
+  runMode: debug
+postgres:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: admin
+  dbName: relibcadb
+  sslMode: disable
+  maxIdleConns: 15
+  maxOpenConns: 100
+  connMaxLifetime: 5
