@@ -1,15 +1,12 @@
 package logging
 
 import (
-	"sync"
-
 	"github.com/garickedd/ReLibca/src/api/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-var once sync.Once
 var zapSinLogger *zap.SugaredLogger
 var logLevelMapping = map[string]zapcore.Level{
 	"debug": zapcore.DebugLevel,

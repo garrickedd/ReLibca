@@ -13,6 +13,10 @@ type Config struct {
 	Server   ServerConfig
 	Postgres PostgresConfig
 	Logger   LoggerConfig
+	Password PasswordConfig
+	Otp      OtpConfig
+	Redis    RedisConfig
+	JWT      JWTConfig
 }
 
 type ServerConfig struct {
@@ -21,6 +25,18 @@ type ServerConfig struct {
 	RunMode      string
 }
 
+type RedisConfig struct {
+	Host               string
+	Port               string
+	Password           string
+	Db                 string
+	DialTimeout        time.Duration
+	ReadTimeout        time.Duration
+	WriteTimeout       time.Duration
+	IdleCheckFrequency time.Duration
+	PoolSize           int
+	PoolTimeout        time.Duration
+}
 type PostgresConfig struct {
 	Host            string
 	Port            string
@@ -37,6 +53,29 @@ type LoggerConfig struct {
 	FilePath string
 	Encoding string
 	Level    string
+	Logger   string
+}
+
+type PasswordConfig struct {
+	IncludeChars     bool
+	IncludeDigits    bool
+	MinLength        int
+	MaxLength        int
+	IncludeUppercase bool
+	IncludeLowercase bool
+}
+
+type OtpConfig struct {
+	ExpireTime time.Duration
+	Digits     int
+	Limiter    time.Duration
+}
+
+type JWTConfig struct {
+	AccessTokenExpireDuration  time.Duration
+	RefreshTokenExpireDuration time.Duration
+	Secret                     string
+	RefreshSecret              string
 }
 
 func GetConfig() *Config {
@@ -71,6 +110,7 @@ func LoadConfig(filename string, fileType string) (*viper.Viper, error) {
 	v.SetConfigName(filename)
 	v.AddConfigPath(".")
 	v.AutomaticEnv()
+
 	err := v.ReadInConfig()
 	if err != nil {
 		log.Printf("Unable to read config: %v", err)
