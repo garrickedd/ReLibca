@@ -12,3 +12,8 @@ postgres:
   maxIdleConns: 15
   maxOpenConns: 100
   connMaxLifetime: 5
+logger:
+  filePath: ../logs/
+  encoding: json
+  level: debug
+  logger: zap

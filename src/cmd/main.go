@@ -1,21 +1,23 @@
 package main
 
 import (
-	"log"
-
 	"github.com/garickedd/ReLibca/src/api"
 	"github.com/garickedd/ReLibca/src/api/config"
-	database "github.com/garickedd/ReLibca/src/infrastructure/persistence"
+	"github.com/garickedd/ReLibca/src/infrastructure/persistence/database"
+	"github.com/garickedd/ReLibca/src/infrastructure/persistence/migration"
+	"github.com/garickedd/ReLibca/src/shared/logging"
 )
 
 func main() {
 	cfg := config.GetConfig()
+	logger := logging.NewLogger(cfg)
 
 	err := database.InitDb(cfg)
 	defer database.CloseDb()
 	if err != nil {
-		log.Fatal()
+		logger.Fatal(logging.Postgres, logging.Startup, err.Error(), nil)
 	}
+	migration.Up_1()
 
-	api.InitServer()
+	api.InitServer(cfg)
 }

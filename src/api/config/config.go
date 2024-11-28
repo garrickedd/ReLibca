@@ -12,6 +12,7 @@ import (
 type Config struct {
 	Server   ServerConfig
 	Postgres PostgresConfig
+	Logger   LoggerConfig
 }
 
 type ServerConfig struct {
@@ -30,6 +31,12 @@ type PostgresConfig struct {
 	MaxIdleConns    int
 	MaxOpenConns    int
 	ConnMaxLifetime time.Duration
+}
+
+type LoggerConfig struct {
+	FilePath string
+	Encoding string
+	Level    string
 }
 
 func GetConfig() *Config {
