@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   ####################### POSTGRES #######################
-  db:
+  postgres:
     image: postgres:alpine
     container_name: postgres
     environment:
@@ -10,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=relibcadb
     volumes:
-      - /relibca-data/var/lib/postgresql/data
+      - postgres:/data/postgres
     ports:
       - '5432:5432'
     networks:
