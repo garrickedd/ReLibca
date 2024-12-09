@@ -92,9 +92,9 @@ func (r RepoUser) DeleteUser(data *model.User) (*config.Result, error) {
 func (r RepoUser) Get_Users(data *model.User, search string) ([]model.User, error) {
 	users_data := []model.User{}
 	if search == "" {
-		r.Select(&users_data, `select u.username, u.roles, u.created_at FROM public.users u`)
+		r.Select(&users_data, `select u.username, u.role, u.created_at FROM public.users u`)
 	} else {
-		r.Select(&users_data, `select u.username, u.roles, u.created_at FROM public.users u`, search)
+		r.Select(&users_data, `select u.username, u.role, u.created_at FROM public.users u`, search)
 	}
 	if len(users_data) == 0 {
 		return nil, errors.New("data not found")
@@ -104,7 +104,7 @@ func (r RepoUser) Get_Users(data *model.User, search string) ([]model.User, erro
 
 func (r RepoUser) GetAuthUser(user string) (*model.User, error) {
 	var result model.User
-	q := `SELECT id_user, username, roles, pass FROM public.users WHERE username = ?`
+	q := `SELECT id_user, username, role, pass FROM public.users WHERE username = ?`
 
 	if err := r.Get(&result, r.Rebind(q), user); err != nil {
 		if err.Error() == "sql: no rows in result set" {
