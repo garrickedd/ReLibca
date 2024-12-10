@@ -3,8 +3,10 @@ package repository
 import (
 	"errors"
 	"fmt"
+	"log"
 
 	"github.com/garrickedd/ReLibca/src/domain/model"
+	"github.com/garrickedd/ReLibca/src/infrastructure/service"
 	"github.com/garrickedd/ReLibca/src/shared/config"
 	"github.com/jmoiron/sqlx"
 )
@@ -26,15 +28,22 @@ func NewUser(db *sqlx.DB) *RepoUser {
 }
 
 // CRUD: Create, Read, Update, Delete
-// POST /v1/users (create new user)
-// GET /v1/users (list user) /v1/users?page=1
-// GET /v1/users/:id (get user details by id)
-// (PUT || PATCH) /v1/users/:id (update user by id)
-// DELETE /v1/users/:id (delete user by id)
+// POST /user (create new user)
+// GET /user (list user) /v1/users?page=1
+// GET /user/:id (get user details by id)
+// (PUT || PATCH) /user/:id (update user by id)
+// DELETE /user/:id (delete user by id)
 
 // POST
 func (r RepoUser) CreateUser(data *model.User) (*config.Result, error) {
-	queryUser := `INSERT INTO users(
+	hashedPass, err := service.HashPassword(data.Pass)
+	if err != nil {
+		return nil, err
+	}
+
+	data.Pass = hashedPass
+
+	queryUser := `INSERT INTO users (
 		first_name,
 		last_name,
 		username,
@@ -42,19 +51,19 @@ func (r RepoUser) CreateUser(data *model.User) (*config.Result, error) {
 		pass,
 		phone,
 		role
-		)
-		VALUE(
-			:first_name,
-			:last_name,
-			:username,
-			:email,
-			:pass,
-			:phone,
-			:role
-		)`
+	) VALUES (
+		:first_name,
+		:last_name,
+		:username,
+		:email,
+		:pass,
+		:phone,
+		:role
+	)`
 
-	_, err := r.NamedExec(queryUser, data)
+	_, err = r.DB.NamedExec(queryUser, data) // FIX .DB
 	if err != nil {
+		log.Println("Error executing query:", err)
 		return nil, err
 	}
 	return &config.Result{Message: "1 data user Created"}, nil
@@ -72,6 +81,7 @@ func (r RepoUser) UpdateUser(data *model.User) (*config.Result, error) {
 	_, err := r.NamedExec(queryUser, data)
 	fmt.Println(r.NamedExec(queryUser, data))
 	if err != nil {
+		log.Println("Error executing query:", err) // log
 		return nil, err
 	}
 	return &config.Result{Message: "1 data user Updated"}, nil
@@ -83,6 +93,7 @@ func (r RepoUser) DeleteUser(data *model.User) (*config.Result, error) {
 
 	_, err := r.NamedExec(queryUser, data)
 	if err != nil {
+		log.Println("Error executing query:", err) // log
 		return nil, err
 	}
 	return &config.Result{Message: "1 data user Deleted"}, nil

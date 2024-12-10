@@ -9,7 +9,7 @@ import (
 
 type User struct {
 	Username string `db:"username" json:"username" form:"username"`
-	Password string `db:"pass" json:"pass,omitempty"`
+	Pass     string `db:"pass" json:"pass,omitempty"`
 }
 
 type HandlerAuth struct {
@@ -37,7 +37,7 @@ func (h *HandlerAuth) Login(ctx *gin.Context) {
 		return
 	}
 
-	if err := service.VerifyPassword(users.Pass, data.Password); err != nil {
+	if err := service.VerifyPassword(users.Pass, data.Pass); err != nil {
 		service.NewRes(401, &config.Result{
 			Data: "Wrong password",
 		}).Send(ctx)
