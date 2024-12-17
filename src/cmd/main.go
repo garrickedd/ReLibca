@@ -5,6 +5,8 @@ import (
 
 	"github.com/asaskevich/govalidator"
 	"github.com/garrickedd/ReLibca/src/api/router"
+
+	// _ "github.com/garrickedd/ReLibca/src/docs"
 	"github.com/garrickedd/ReLibca/src/infrastructure/database"
 	"github.com/garrickedd/ReLibca/src/infrastructure/service"
 	"github.com/spf13/viper"

@@ -12,7 +12,7 @@ CREATE TABLE public.users (
 	created_at timestamp NULL DEFAULT now(),
 	updated_at timestamp NULL,
 	CONSTRAINT user_pk PRIMARY KEY (id_user),
-	CONSTRAINT users_un UNIQUE (username),
-	CONSTRAINT users_username_key UNIQUE (username),
-	CONSTRAINT users_username_key1 UNIQUE (username)
+	CONSTRAINT users_un UNIQUE (username)
+	-- CONSTRAINT users_username_key UNIQUE (username),
+	-- CONSTRAINT users_username_key1 UNIQUE (username)
 );
