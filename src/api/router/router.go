@@ -11,8 +11,12 @@ func NewRoute(db *sqlx.DB) *gin.Engine {
 
 	router.Use(middleware.CORS())
 	User(router, db)
+	Product(router, db)
+	Book(router, db)
+	Promotion(router, db)
+	Order(router, db)
 
-	auth(router, db)
+	Auth(router, db)
 
 	return router
 }

@@ -7,7 +7,7 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-func auth(g *gin.Engine, d *sqlx.DB) {
+func Auth(g *gin.Engine, d *sqlx.DB) {
 	route := g.Group("/login")
 
 	repo := repository.NewUser(d)
