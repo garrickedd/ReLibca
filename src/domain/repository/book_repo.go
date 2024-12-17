@@ -31,14 +31,16 @@ func (r RepoBook) CreateBook(data *model.Book) (*config.Result, error) {
 		author, 
 		count,         
 		tag,         
-		place
+		place,
+		image_file
 	) 
 		VALUES(
 			:title, 
 			:author, 
 			:count, 
 			:tag, 
-			:place
+			:place,
+			:image_file
 		)`
 
 	_, err := r.NamedExec(queryBook, data)
@@ -63,7 +65,8 @@ func (r RepoBook) UpdateBook(data *model.Book) (*config.Result, error) {
 	author = :author,
 	count = :count,
 	tag = :tag,
-	place = :place
+	place = :place,
+	image_file = :image_file,
 	WHERE id_book = :id_book
 	`
 

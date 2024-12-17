@@ -8,10 +8,11 @@ package model
 // place varchar(255),
 
 type Book struct {
-	Id_book string   `db:"id_book" form:"id_book" json:"id_book" `
-	Title   string   `db:"title" form:"title" json:"title" `
-	Author  string   `db:"author" form:"author" json:"author" `
-	Count   int      `db:"count" form:"count" json:"count" `
-	Tag     []string `db:"tag" form:"tag" json:"tag" `
-	Place   string   `db:"place" form:"place" json:"place" `
+	Id_book    string   `db:"id_book" form:"id_book" json:"id_book" `
+	Title      string   `db:"title" form:"title" json:"title" `
+	Author     string   `db:"author" form:"author" json:"author" `
+	Count      int      `db:"count" form:"count" json:"count" `
+	Tag        []string `db:"tag" form:"tag" json:"tag" `
+	Place      string   `db:"place" form:"place" json:"place" `
+	Image_file string   `db:"image_file" json:"image_file,omitempty"`
 }
