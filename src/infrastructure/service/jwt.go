@@ -19,7 +19,7 @@ func NewToken(uid string, role int) *claims {
 		Role: role,
 		RegisteredClaims: jwt.RegisteredClaims{
 			Issuer:    "coffeeShop",
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Minute * 2)), // Token hết hạn sau 2 phút
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Minute * 30)), // Token hết hạn sau 30 phút
 		},
 	}
 }

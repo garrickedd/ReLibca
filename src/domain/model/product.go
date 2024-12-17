@@ -22,7 +22,7 @@ type Product struct {
 	Price        int64      `db:"price" form:"price" json:"price"`
 	Image_file   string     `db:"image_file" json:"image_file,omitempty" valid:"-" `
 	Categories   string     `db:"categories" form:"categories" json:"categories" `
-	IsFavorite   string     `db:"isfavorite" form:"isfavorite" json:"isfavorite" `
+	IsFavourite  string     `db:"isfavourite" form:"isfavorite" json:"isfavorite" `
 	Created_at   *time.Time `db:"created_at" json:"created_at" `
 	Updated_at   *time.Time `db:"updated_at" json:"updated_at" `
 }

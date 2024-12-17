@@ -67,7 +67,7 @@ func (r RepoPromotion) UpdatePromotion(data *model.Promotion) (*config.Result, e
 	quantity = :quantity,
 	started_at = :started_at,
 	end_at = :end_at
-	WHERE id_promotion = :id_promotion
+	WHERE code = :code
 	`
 
 	_, err := r.NamedExec(queryPromotion, data)

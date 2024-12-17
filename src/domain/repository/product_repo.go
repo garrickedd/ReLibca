@@ -41,7 +41,7 @@ func (r RepoProduct) CreateProduct(data *model.Product) (*config.Result, error) 
 		price,         
 		image_file,
 		categories,
-		isfavorite
+		isfavourite
 		) 
 		VALUES(
 			:product_name, 
@@ -50,7 +50,7 @@ func (r RepoProduct) CreateProduct(data *model.Product) (*config.Result, error) 
 			:price,
 			:image_file,
 			:categories,
-			:isfavorite
+			:isfavourite
 		)`
 
 	_, err := r.NamedExec(queryproduct, data)

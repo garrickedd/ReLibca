@@ -16,6 +16,16 @@ func NewOrder(r repository.RepoOrderIF) *HandlerOrder {
 	return &HandlerOrder{r}
 }
 
+// AddOrder godoc
+// @Summary      Create a new order
+// @Description  API để thêm đơn hàng mới
+// @Tags         orders
+// @Accept       json
+// @Produce      json
+// @Param        order  body      model.Order  true  "Order object"
+// @Success      200    {object}  map[string]interface{} "Order created successfully"
+// @Failure      400    {object}  map[string]string "Bad Request"
+// @Router       /order [post]
 func (h *HandlerOrder) AddOrder(ctx *gin.Context) {
 	var order model.Order
 	if err := ctx.ShouldBind(&order); err != nil {
@@ -32,6 +42,16 @@ func (h *HandlerOrder) AddOrder(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
+// RemoveOrder godoc
+// @Summary      Delete an order
+// @Description  API để xóa đơn hàng
+// @Tags         orders
+// @Accept       json
+// @Produce      json
+// @Param        order  body      model.Order  true  "Order object"
+// @Success      200    {object}  map[string]interface{} "Order deleted successfully"
+// @Failure      400    {object}  map[string]string "Bad Request"
+// @Router       /order [delete]
 func (h *HandlerOrder) RemoveOrder(ctx *gin.Context) {
 	var order model.Order
 	if err := ctx.ShouldBind(&order); err != nil {

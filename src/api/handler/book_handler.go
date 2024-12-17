@@ -18,6 +18,16 @@ func NewBook(r repository.RepoBookIF) *HandlerBook {
 	return &HandlerBook{r}
 }
 
+// Postdata godoc
+// @Summary      Create a new book
+// @Description  API để tạo sách mới
+// @Tags         books
+// @Accept       json
+// @Produce      json
+// @Param        book  body      model.Book  true  "Book object"
+// @Success      200   {object}  map[string]interface{} "Book created successfully"
+// @Failure      400   {object}  map[string]string "Bad Request"
+// @Router       /book [post]
 func (h *HandlerBook) Postdata(ctx *gin.Context) {
 	var book model.Book
 	if err := ctx.ShouldBind(&book); err != nil {
@@ -36,6 +46,16 @@ func (h *HandlerBook) Postdata(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
+// Updatedata godoc
+// @Summary      Update a book
+// @Description  API để cập nhật thông tin sách
+// @Tags         books
+// @Accept       json
+// @Produce      json
+// @Param        book  body      model.Book  true  "Book object"
+// @Success      200   {object}  map[string]interface{} "Book updated successfully"
+// @Failure      400   {object}  map[string]string "Bad Request"
+// @Router       /book [put]
 func (h *HandlerBook) Updatedata(ctx *gin.Context) {
 	var book model.Book
 	if err := ctx.ShouldBind(&book); err != nil {
@@ -52,6 +72,16 @@ func (h *HandlerBook) Updatedata(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
+// Deletedata godoc
+// @Summary      Delete a book
+// @Description  API để xóa sách
+// @Tags         books
+// @Accept       json
+// @Produce      json
+// @Param        book  body      model.Book  true  "Book object"
+// @Success      200   {object}  map[string]interface{} "Book deleted successfully"
+// @Failure      400   {object}  map[string]string "Bad Request"
+// @Router       /book [delete]
 func (h *HandlerBook) Deletedata(ctx *gin.Context) {
 	var book model.Book
 	if err := ctx.ShouldBind(&book); err != nil {
@@ -68,6 +98,19 @@ func (h *HandlerBook) Deletedata(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
+// Getdata godoc
+// @Summary      Get books
+// @Description  API để lấy danh sách sách với các tùy chọn tìm kiếm và phân trang
+// @Tags         books
+// @Accept       json
+// @Produce      json
+// @Param        search   query     string  false  "Search keyword"
+// @Param        orderby  query     string  false  "Order by field"
+// @Param        page     query     int     false  "Page number"
+// @Param        limit    query     int     false  "Limit results per page"
+// @Success      200      {object}  map[string]interface{} "List of books with pagination"
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Router       /book [get]
 func (h *HandlerBook) Getdata(ctx *gin.Context) {
 	var book model.Book
 	search := ctx.Query("search")

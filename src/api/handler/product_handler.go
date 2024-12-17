@@ -18,6 +18,16 @@ func NewProduct(r repository.RepoProductIF) *HandlerProduct {
 	return &HandlerProduct{r}
 }
 
+// Postdata godoc
+// @Summary      Create a new product
+// @Description  API để tạo sản phẩm mới
+// @Tags         products
+// @Accept       json
+// @Produce      json
+// @Param        product  body      model.Product  true  "Product object"
+// @Success      200      {object}  map[string]interface{} "Product created successfully"
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Router       /product [post]
 func (h *HandlerProduct) Postdata(ctx *gin.Context) {
 	var product model.Product
 	if err := ctx.ShouldBind(&product); err != nil {
@@ -36,6 +46,16 @@ func (h *HandlerProduct) Postdata(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
+// Updatedata godoc
+// @Summary      Update product
+// @Description  API để cập nhật sản phẩm
+// @Tags         products
+// @Accept       json
+// @Produce      json
+// @Param        product  body      model.Product  true  "Product object"
+// @Success      200      {object}  map[string]interface{} "Product updated successfully"
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Router       /product [put]
 func (h *HandlerProduct) Updatedata(ctx *gin.Context) {
 	var product model.Product
 	if err := ctx.ShouldBind(&product); err != nil {
@@ -52,6 +72,16 @@ func (h *HandlerProduct) Updatedata(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
+// Deletedata godoc
+// @Summary      Delete product
+// @Description  API để xóa sản phẩm
+// @Tags         products
+// @Accept       json
+// @Produce      json
+// @Param        product  body      model.Product  true  "Product object"
+// @Success      200      {object}  map[string]interface{} "Product deleted successfully"
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Router       /product [delete]
 func (h *HandlerProduct) Deletedata(ctx *gin.Context) {
 	var product model.Product
 	if err := ctx.ShouldBind(&product); err != nil {
@@ -68,6 +98,19 @@ func (h *HandlerProduct) Deletedata(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
+// Getdata godoc
+// @Summary      Get products
+// @Description  API để lấy danh sách sản phẩm có phân trang
+// @Tags         products
+// @Accept       json
+// @Produce      json
+// @Param        search   query     string  false  "Search keyword"
+// @Param        orderby  query     string  false  "Order by field"
+// @Param        page     query     int     false  "Page number"
+// @Param        limit    query     int     false  "Limit results per page"
+// @Success      200      {object}  map[string]interface{} "List of products with pagination"
+// @Failure      400      {object}  map[string]string "Bad Request"
+// @Router       /product [get]
 func (h *HandlerProduct) Getdata(ctx *gin.Context) {
 	var product model.Product
 	search := ctx.Query("search")

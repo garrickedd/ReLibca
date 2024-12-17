@@ -1,0 +1,60 @@
+.
+├── Makefile
+├── go.mod
+├── go.sum
+├── src
+│   ├── api
+│   │   ├── handler
+│   │   │   ├── auth.handler.go
+│   │   │   ├── book_handler.go
+│   │   │   ├── order_handler.go
+│   │   │   ├── product_handler.go
+│   │   │   ├── promotion_handler.go
+│   │   │   └── user_handler.go
+│   │   ├── middleware
+│   │   │   ├── auth_mid.go
+│   │   │   ├── cors_mid.go
+│   │   │   └── upload_mid.go
+│   │   └── router
+│   │       ├── auth_router.go
+│   │       ├── book_router.go
+│   │       ├── order_route.go
+│   │       ├── product_router.go
+│   │       ├── promotion_route.go
+│   │       ├── router.go
+│   │       └── user_router.go
+│   ├── cmd
+│   │   └── main.go
+│   ├── docs
+│   │   ├── docs.go
+│   │   ├── swagger.json
+│   │   └── swagger.yaml
+│   ├── domain
+│   │   ├── model
+│   │   │   ├── book.go
+│   │   │   ├── order.go
+│   │   │   ├── product.go
+│   │   │   ├── promotion.go
+│   │   │   └── user.go
+│   │   └── repository
+│   │       ├── book_repo.go
+│   │       ├── order_repo.go
+│   │       ├── product_repo.go
+│   │       ├── promotion_repo.go
+│   │       └── user_repo.go
+│   ├── infrastructure
+│   │   ├── database
+│   │   │   └── postgres.go
+│   │   ├── migrations
+│   │   │   ├── //file sql
+│   │   └── service
+│   │       ├── bcrypt.go
+│   │       ├── cloudinary.go
+│   │       ├── jwt.go
+│   │       ├── res.go
+│   │       └── server.go
+│   └── shared
+│       └── config
+│           └── config.go
+└── web.env.yml
+

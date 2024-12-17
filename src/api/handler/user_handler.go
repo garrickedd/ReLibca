@@ -19,6 +19,16 @@ func NewUser(r repository.RepoUserIF) *HandlerUser {
 	return &HandlerUser{r}
 }
 
+// Postdata godoc
+// @Summary      Create a new user
+// @Description  API để tạo người dùng mới
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        user  body      model.User  true  "User object"
+// @Success      200   {object}  config.Result
+// @Failure      401   {object}  config.Result
+// @Router       /user [post]
 func (h *HandlerUser) Postdata(ctx *gin.Context) {
 	var err error
 	user := model.User{
@@ -55,6 +65,16 @@ func (h *HandlerUser) Postdata(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
+// Updatedata godoc
+// @Summary      Update user
+// @Description  API để cập nhật tài khoản
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        user  body      model.User  true  "User object"
+// @Success      200   {object}  config.Result
+// @Failure      400   {object}  config.Result
+// @Router       /user [put]
 func (h *HandlerUser) Updatedata(ctx *gin.Context) {
 	var user model.User
 	user.Username = ctx.Param("username")
@@ -73,6 +93,16 @@ func (h *HandlerUser) Updatedata(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
+// Deletedata godoc
+// @Summary      Delete an user
+// @Description  API để xóa người dùng
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        user  body      model.User  true  "User object"
+// @Success      200   {object}  config.Result
+// @Failure      401   {object}  config.Result
+// @Router       /user [delete]
 func (h *HandlerUser) Deletedata(ctx *gin.Context) {
 	var user model.User
 	if err := ctx.ShouldBind(&user); err != nil {
@@ -89,6 +119,16 @@ func (h *HandlerUser) Deletedata(ctx *gin.Context) {
 	ctx.JSON(200, response)
 }
 
+// Getdata godoc
+// @Summary      Get user
+// @Description  API để fetch user
+// @Tags         users
+// @Accept       json
+// @Produce      json
+// @Param        user  body      model.User  true  "User object"
+// @Success      200   {object}  config.Result
+// @Failure      401   {object}  config.Result
+// @Router       /user [get]
 func (h *HandlerUser) Getdata(ctx *gin.Context) {
 	var users model.User
 	search := ctx.Query("search")

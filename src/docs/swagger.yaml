@@ -1,0 +1,680 @@
+basePath: /
+definitions:
+  config.Result:
+    properties:
+      data: {}
+      message: {}
+      meta: {}
+    type: object
+  model.Book:
+    properties:
+      author:
+        type: string
+      count:
+        type: integer
+      id_book:
+        type: string
+      image_file:
+        type: string
+      place:
+        type: string
+      tag:
+        items:
+          type: string
+        type: array
+      title:
+        type: string
+    type: object
+  model.Order:
+    properties:
+      created_at:
+        type: string
+      discount_amount:
+        type: number
+      id_order:
+        type: string
+      id_user:
+        type: string
+      order_details:
+        items:
+          $ref: '#/definitions/model.OrderDetail'
+        type: array
+      payment_method:
+        type: string
+      status:
+        type: string
+      total_amount:
+        type: number
+      updated_at:
+        type: string
+    type: object
+  model.OrderDetail:
+    properties:
+      id_item:
+        type: string
+      id_order:
+        type: string
+      id_order_detail:
+        type: string
+      item_type:
+        type: string
+      price:
+        type: number
+      quantity:
+        type: integer
+    type: object
+  model.Product:
+    properties:
+      categories:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      id_product:
+        type: string
+      image_file:
+        type: string
+      isfavorite:
+        type: string
+      price:
+        type: integer
+      product_name:
+        type: string
+      status:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.Promotion:
+    properties:
+      code:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      discount:
+        type: number
+      end_at:
+        type: string
+      id_promotion:
+        type: string
+      quantity:
+        type: integer
+      started_at:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.User:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      id_user:
+        type: string
+      last_name:
+        type: string
+      pass:
+        type: string
+      phone:
+        type: string
+      role:
+        type: integer
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+    url: http://example.com/support
+  description: RESTful API documentation for CoffeeBook Shop application.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://example.com/terms/
+  title: Relibca API
+  version: "1.0"
+paths:
+  /book:
+    delete:
+      consumes:
+      - application/json
+      description: API để xóa sách
+      parameters:
+      - description: Book object
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/model.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Book deleted successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a book
+      tags:
+      - books
+    get:
+      consumes:
+      - application/json
+      description: API để lấy danh sách sách với các tùy chọn tìm kiếm và phân trang
+      parameters:
+      - description: Search keyword
+        in: query
+        name: search
+        type: string
+      - description: Order by field
+        in: query
+        name: orderby
+        type: string
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Limit results per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of books with pagination
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get books
+      tags:
+      - books
+    post:
+      consumes:
+      - application/json
+      description: API để tạo sách mới
+      parameters:
+      - description: Book object
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/model.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Book created successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new book
+      tags:
+      - books
+    put:
+      consumes:
+      - application/json
+      description: API để cập nhật thông tin sách
+      parameters:
+      - description: Book object
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/model.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Book updated successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update a book
+      tags:
+      - books
+  /order:
+    delete:
+      consumes:
+      - application/json
+      description: API để xóa đơn hàng
+      parameters:
+      - description: Order object
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/model.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Order deleted successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete an order
+      tags:
+      - orders
+    post:
+      consumes:
+      - application/json
+      description: API để thêm đơn hàng mới
+      parameters:
+      - description: Order object
+        in: body
+        name: order
+        required: true
+        schema:
+          $ref: '#/definitions/model.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Order created successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new order
+      tags:
+      - orders
+  /product:
+    delete:
+      consumes:
+      - application/json
+      description: API để xóa sản phẩm
+      parameters:
+      - description: Product object
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/model.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product deleted successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete product
+      tags:
+      - products
+    get:
+      consumes:
+      - application/json
+      description: API để lấy danh sách sản phẩm có phân trang
+      parameters:
+      - description: Search keyword
+        in: query
+        name: search
+        type: string
+      - description: Order by field
+        in: query
+        name: orderby
+        type: string
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Limit results per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of products with pagination
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get products
+      tags:
+      - products
+    post:
+      consumes:
+      - application/json
+      description: API để tạo sản phẩm mới
+      parameters:
+      - description: Product object
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/model.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product created successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new product
+      tags:
+      - products
+    put:
+      consumes:
+      - application/json
+      description: API để cập nhật sản phẩm
+      parameters:
+      - description: Product object
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/model.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product updated successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update product
+      tags:
+      - products
+  /promotion:
+    delete:
+      consumes:
+      - application/json
+      description: API để xóa khuyến mãi
+      parameters:
+      - description: Promotion object
+        in: body
+        name: promotion
+        required: true
+        schema:
+          $ref: '#/definitions/model.Promotion'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Promotion deleted successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete a promotion
+      tags:
+      - promotions
+    get:
+      consumes:
+      - application/json
+      description: API để lấy danh sách khuyến mãi với các tùy chọn tìm kiếm và phân
+        trang
+      parameters:
+      - description: Search keyword
+        in: query
+        name: search
+        type: string
+      - description: Order by field
+        in: query
+        name: orderby
+        type: string
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Limit results per page
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of promotions with pagination
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get promotions
+      tags:
+      - promotions
+    post:
+      consumes:
+      - application/json
+      description: API để tạo khuyến mãi mới
+      parameters:
+      - description: Promotion object
+        in: body
+        name: promotion
+        required: true
+        schema:
+          $ref: '#/definitions/model.Promotion'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Promotion created successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create a new promotion
+      tags:
+      - promotions
+    put:
+      consumes:
+      - application/json
+      description: API để cập nhật khuyến mãi
+      parameters:
+      - description: Promotion object
+        in: body
+        name: promotion
+        required: true
+        schema:
+          $ref: '#/definitions/model.Promotion'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Promotion updated successfully
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update a promotion
+      tags:
+      - promotions
+  /user:
+    delete:
+      consumes:
+      - application/json
+      description: API để xóa người dùng
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/config.Result'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.Result'
+      summary: Delete an user
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: API để fetch user
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/config.Result'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.Result'
+      summary: Get user
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: API để tạo người dùng mới
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/config.Result'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/config.Result'
+      summary: Create a new user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: API để cập nhật tài khoản
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/config.Result'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/config.Result'
+      summary: Update user
+      tags:
+      - users
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
