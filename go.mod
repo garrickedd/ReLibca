@@ -1,6 +1,6 @@
 module github.com/garrickedd/ReLibca
 
-go 1.23.2
+go 1.23
 
 require (
 	github.com/didip/tollbooth v4.0.2+incompatible

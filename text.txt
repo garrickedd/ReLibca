@@ -1,8 +1,12 @@
 .
 ├── Makefile
+├── README.md
+├── docker
+│   └── docker-compose.yml
 ├── go.mod
 ├── go.sum
 ├── src
+│   ├── Dockerfile
 │   ├── api
 │   │   ├── handler
 │   │   │   ├── auth.handler.go
@@ -46,7 +50,18 @@
 │   │   ├── database
 │   │   │   └── postgres.go
 │   │   ├── migrations
-│   │   │   ├── //file sql
+│   │   │   ├── 000001_users.down.sql
+│   │   │   ├── 000001_users.up.sql
+│   │   │   ├── 000002_products.down.sql
+│   │   │   ├── 000002_products.up.sql
+│   │   │   ├── 000003_books.down.sql
+│   │   │   ├── 000003_books.up.sql
+│   │   │   ├── 000004_promotions.down.sql
+│   │   │   ├── 000004_promotions.up.sql
+│   │   │   ├── 000005_orders.down.sql
+│   │   │   ├── 000005_orders.up.sql
+│   │   │   ├── 000006_order_details.down.sql
+│   │   │   └── 000006_order_details.up.sql
 │   │   └── service
 │   │       ├── bcrypt.go
 │   │       ├── cloudinary.go
@@ -54,7 +69,10 @@
 │   │       ├── res.go
 │   │       └── server.go
 │   └── shared
-│       └── config
-│           └── config.go
+│       ├── config
+│       │   └── config.go
+│       └── logger.go
+├── text.txt
 └── web.env.yml
 
+18 directories, 58 files
