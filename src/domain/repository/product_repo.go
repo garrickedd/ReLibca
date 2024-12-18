@@ -36,19 +36,15 @@ func NewProduct(db *sqlx.DB) *RepoProduct {
 func (r RepoProduct) CreateProduct(data *model.Product) (*config.Result, error) {
 	queryproduct := `INSERT INTO products(
 		product_name,  
-		description, 
-		status,         
+		description,        
 		price,         
-		image_file,
 		categories,
 		isfavourite
 		) 
 		VALUES(
 			:product_name, 
 			:description, 
-			:status, 
 			:price,
-			:image_file,
 			:categories,
 			:isfavourite
 		)`
@@ -74,12 +70,10 @@ func (r RepoProduct) UpdateProduct(data *model.Product) (*config.Result, error) 
 	queryProduct := `UPDATE public.products SET
 	product_name = :product_name,
 	description = :description,
-	status = :status,
 	price = :price,
-	image_file = :image_file,
 	categories = :categories,
 	isfavourite = :isfavourite
-	WHERE id_product = :id_product
+WHERE product_name = :product_name
 	`
 
 	_, err := r.NamedExec(queryProduct, data)

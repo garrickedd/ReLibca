@@ -14,8 +14,8 @@ func Book(g *gin.Engine, d *sqlx.DB) {
 	repo := repository.NewBook(d)
 	handler := handler.NewBook(repo)
 
-	route.POST("/", middleware.UploadFile, handler.Postdata)
+	route.POST("/", handler.Postdata)
 	route.GET("/", handler.Getdata)
-	route.PUT("/:title", middleware.UploadFile, middleware.AuthJwt(1), handler.Updatedata)
+	route.PUT("/:title", middleware.AuthJwt(1), handler.Updatedata)
 	route.DELETE("/", middleware.AuthJwt(1), handler.Deletedata)
 }

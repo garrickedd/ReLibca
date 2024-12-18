@@ -5,6 +5,6 @@ CREATE TABLE public.books (
     count int NOT NULL DEFAULT 0,
     tag text[] NOT NULL,
     place varchar(255),
-    image_file varchar NULL,
+    -- image_file varchar NULL,
 	CONSTRAINT book_pk PRIMARY KEY (id_book)
 );

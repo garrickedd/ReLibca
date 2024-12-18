@@ -15,14 +15,14 @@ import "time"
 // 	CONSTRAINT product_pk PRIMARY KEY (id_product)
 
 type Product struct {
-	Id_product   string     `db:"id_product" form:"id_product" json:"id_product" `
-	Product_name string     `db:"product_name" form:"product_name" json:"product_name" `
-	Description  string     `db:"description" form:"description" json:"description" `
-	Status       string     `db:"status" form:"status" json:"status"`
-	Price        int64      `db:"price" form:"price" json:"price"`
-	Image_file   string     `db:"image_file" json:"image_file,omitempty" valid:"-" `
-	Categories   string     `db:"categories" form:"categories" json:"categories" `
-	IsFavourite  string     `db:"isfavourite" form:"isfavorite" json:"isfavorite" `
-	Created_at   *time.Time `db:"created_at" json:"created_at" `
-	Updated_at   *time.Time `db:"updated_at" json:"updated_at" `
+	Id_product   string `db:"id_product" form:"id_product" json:"id_product" `
+	Product_name string `db:"product_name" form:"product_name" json:"product_name" `
+	Description  string `db:"description" form:"description" json:"description" `
+	// Status       string `db:"status" form:"status" json:"status"`
+	Price int64 `db:"price" form:"price" json:"price"`
+	// Image_file   string     `db:"image_file" json:"image_file,omitempty" valid:"-" `
+	Categories  string     `db:"categories" form:"categories" json:"categories" `
+	IsFavourite bool       `db:"isfavourite" form:"isfavorite" json:"isfavorite" `
+	Created_at  *time.Time `db:"created_at" json:"created_at" `
+	Updated_at  *time.Time `db:"updated_at" json:"updated_at" `
 }

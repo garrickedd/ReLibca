@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -35,8 +34,8 @@ func (h *HandlerBook) Postdata(ctx *gin.Context) {
 		return
 	}
 
-	book.Image_file = ctx.MustGet("image").(string)
-	fmt.Println(book)
+	// book.Image_file = ctx.MustGet("image").(string)
+	// fmt.Println(book)
 	response, er := h.CreateBook(&book)
 	if er != nil {
 		ctx.AbortWithError(http.StatusBadRequest, er)
@@ -57,11 +56,15 @@ func (h *HandlerBook) Postdata(ctx *gin.Context) {
 // @Failure      400   {object}  map[string]string "Bad Request"
 // @Router       /book [put]
 func (h *HandlerBook) Updatedata(ctx *gin.Context) {
+	bookTitle := ctx.Param("title") //
+
 	var book model.Book
 	if err := ctx.ShouldBind(&book); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
+
+	book.Title = bookTitle
 
 	response, er := h.UpdateBook(&book)
 	if er != nil {

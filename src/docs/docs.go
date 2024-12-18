@@ -841,9 +841,6 @@ const docTemplate = `{
                 "id_book": {
                     "type": "string"
                 },
-                "image_file": {
-                    "type": "string"
-                },
                 "place": {
                     "type": "string"
                 },
@@ -920,6 +917,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "categories": {
+                    "description": "Image_file   string     ` + "`" + `db:\"image_file\" json:\"image_file,omitempty\" valid:\"-\" ` + "`" + `",
                     "type": "string"
                 },
                 "created_at": {
@@ -931,19 +929,14 @@ const docTemplate = `{
                 "id_product": {
                     "type": "string"
                 },
-                "image_file": {
-                    "type": "string"
-                },
                 "isfavorite": {
-                    "type": "string"
+                    "type": "boolean"
                 },
                 "price": {
+                    "description": "Status       string ` + "`" + `db:\"status\" form:\"status\" json:\"status\"` + "`" + `",
                     "type": "integer"
                 },
                 "product_name": {
-                    "type": "string"
-                },
-                "status": {
                     "type": "string"
                 },
                 "updated_at": {

@@ -72,11 +72,11 @@ func (r RepoUser) CreateUser(data *model.User) (*config.Result, error) {
 // PUT
 func (r RepoUser) UpdateUser(data *model.User) (*config.Result, error) {
 	queryUser := `UPDATE public.users SET
-	email = COALESCE(NULLIF(:email, ''), email),
-	pass = COALESCE(NULLIF(:pass, ''), pass),
-	phone = COALESCE(NULLIF(:phone, ''), phone),
-	role = COALESCE(NULLIF(:role, ''), role),
-	`
+        email = COALESCE(NULLIF(:email, ''), email),
+        pass = COALESCE(NULLIF(:pass, ''), pass),
+        phone = COALESCE(NULLIF(:phone, ''), phone),
+        role = COALESCE(:role, role)
+    WHERE username = :username`
 
 	_, err := r.NamedExec(queryUser, data)
 	fmt.Println(r.NamedExec(queryUser, data))

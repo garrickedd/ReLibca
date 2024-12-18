@@ -17,9 +17,9 @@ func Product(g *gin.Engine, d *sqlx.DB) {
 	// orderRepo := repository.NewOrder(d)
 	// orderHandler := handler.NewOrder(orderRepo)
 
-	route.POST("/", middleware.UploadFile, handler.Postdata)
+	route.POST("/", handler.Postdata)
 	// route.POST("/order", orderHandler.AddOrder)
 	route.GET("/", handler.Getdata)
-	route.PUT("/:product_name", middleware.UploadFile, middleware.AuthJwt(1), handler.Updatedata)
+	route.PUT("/:product_name", middleware.AuthJwt(1), handler.Updatedata)
 	route.DELETE("/", middleware.AuthJwt(1), handler.Deletedata)
 }

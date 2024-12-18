@@ -8,6 +8,7 @@ import (
 	"github.com/garrickedd/ReLibca/src/domain/model"
 	"github.com/garrickedd/ReLibca/src/shared/config"
 	"github.com/jmoiron/sqlx"
+	"github.com/lib/pq"
 )
 
 type RepoBookIF interface {
@@ -31,19 +32,26 @@ func (r RepoBook) CreateBook(data *model.Book) (*config.Result, error) {
 		author, 
 		count,         
 		tag,         
-		place,
-		image_file
+		place
 	) 
 		VALUES(
 			:title, 
 			:author, 
 			:count, 
 			:tag, 
-			:place,
-			:image_file
+			:place
 		)`
 
-	_, err := r.NamedExec(queryBook, data)
+	// Convert the tag slice to pq.Array
+	// data.Tag = pq.Array(data.Tag)
+
+	_, err := r.NamedExec(queryBook, map[string]interface{}{
+		"title":  data.Title,
+		"author": data.Author,
+		"count":  data.Count,
+		"tag":    pq.Array(data.Tag), // Pass pq.Array directly here
+		"place":  data.Place,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -65,12 +73,17 @@ func (r RepoBook) UpdateBook(data *model.Book) (*config.Result, error) {
 	author = :author,
 	count = :count,
 	tag = :tag,
-	place = :place,
-	image_file = :image_file,
-	WHERE id_book = :id_book
+	place = :place
+	WHERE title = :title
 	`
 
-	_, err := r.NamedExec(queryBook, data)
+	_, err := r.NamedExec(queryBook, map[string]interface{}{
+		"title":  data.Title,
+		"author": data.Author,
+		"count":  data.Count,
+		"tag":    pq.Array(data.Tag), // Pass pq.Array directly here
+		"place":  data.Place,
+	})
 	if err != nil {
 		log.Println("Error executing query:", err)
 		return nil, err
@@ -78,6 +91,7 @@ func (r RepoBook) UpdateBook(data *model.Book) (*config.Result, error) {
 	return &config.Result{Message: "1 book updated"}, nil
 }
 
+// TODO: Fix "sql: Scan error on column index 4, name \"tag\": unsupported Scan, storing driver.Value type []uint8 into type *[]string"
 func (r RepoBook) Get_Books(data *model.Book, search string, limit int, page int, orderby string) ([]model.Book, *Pagination, error) {
 	books_data := []model.Book{}
 
@@ -96,12 +110,11 @@ func (r RepoBook) Get_Books(data *model.Book, search string, limit int, page int
 
 	offset := limit * (page - 1)
 
+	// Calculate total record count for pagination
 	sqltable := fmt.Sprintln("SELECT count(id_book) FROM books")
-
 	r.QueryRow(sqltable).Scan(&recordcount)
 
 	total := (recordcount / limit)
-
 	remainder := (recordcount % limit)
 	if remainder == 0 {
 		pgnt.TotalPage = total
@@ -122,17 +135,49 @@ func (r RepoBook) Get_Books(data *model.Book, search string, limit int, page int
 		pgnt.Next = 0
 	}
 
+	// Query to search by title only
 	if search != "" {
-		r.Select(&books_data, `select * from books WHERE title=$1 LIMIT $2 OFFSET $3 `, search, limit, offset)
+		// Use ILIKE for case-insensitive search in title
+		query := `SELECT * FROM books WHERE title ILIKE $1 LIMIT $2 OFFSET $3`
+		err := r.Select(&books_data, query, "%"+search+"%", limit, offset)
+		if err != nil {
+			return nil, nil, err
+		}
 	} else if orderby != "" {
-		r.Select(&books_data, `select * from books order by `+orderby+` asc LIMIT $1 OFFSET $2`, limit, offset)
-	} else if orderby != "" && search != "" {
-		r.Select(&books_data, `select * from books order by `+orderby+` asc WHERE title=$1 LIMIT $2 OFFSET $3 `, search, limit, offset)
+		// Search and order by specified column
+		query := `SELECT * FROM books ORDER BY ` + orderby + ` ASC LIMIT $1 OFFSET $2`
+		err := r.Select(&books_data, query, limit, offset)
+		if err != nil {
+			return nil, nil, err
+		}
+	} else if search != "" && orderby != "" {
+		// Combine title search and ordering
+		query := `SELECT * FROM books WHERE title ILIKE $1 ORDER BY ` + orderby + ` ASC LIMIT $2 OFFSET $3`
+		err := r.Select(&books_data, query, "%"+search+"%", limit, offset)
+		if err != nil {
+			return nil, nil, err
+		}
 	} else {
-		r.Select(&books_data, `select * from books LIMIT $1 OFFSET $2 `, limit, offset)
+		// Simple query without filtering
+		query := `SELECT * FROM books LIMIT $1 OFFSET $2`
+		err := r.Select(&books_data, query, limit, offset)
+		if err != nil {
+			return nil, nil, err
+		}
 	}
+
+	// Ensure that the "tag" field is correctly scanned as a string array
+	for i := range books_data {
+		// Use pq.Array to scan the tag field
+		if err := pq.Array(&books_data[i].Tag).Scan(books_data[i].Tag); err != nil {
+			return nil, nil, err
+		}
+	}
+
+	// If no books are found
 	if len(books_data) == 0 {
 		return nil, nil, errors.New("data not found")
 	}
+
 	return books_data, pgnt, nil
 }

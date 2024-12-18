@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -35,8 +34,8 @@ func (h *HandlerProduct) Postdata(ctx *gin.Context) {
 		return
 	}
 
-	product.Image_file = ctx.MustGet("image").(string)
-	fmt.Println(product)
+	// product.Image_file = ctx.MustGet("image").(string)
+	// fmt.Println(product)
 	response, er := h.CreateProduct(&product)
 	if er != nil {
 		ctx.AbortWithError(http.StatusBadRequest, er)
@@ -57,11 +56,15 @@ func (h *HandlerProduct) Postdata(ctx *gin.Context) {
 // @Failure      400      {object}  map[string]string "Bad Request"
 // @Router       /product [put]
 func (h *HandlerProduct) Updatedata(ctx *gin.Context) {
+	productName := ctx.Param("product_name") //
+
 	var product model.Product
 	if err := ctx.ShouldBind(&product); err != nil {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
+
+	product.Product_name = productName
 
 	response, er := h.UpdateProduct(&product)
 	if er != nil {
